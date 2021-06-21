@@ -1,0 +1,53 @@
+{% extends 'add_info/base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block title %}Загрузка данных{% endblock title %}
+
+{% block staticfiles %}
+    <link href="{% static "css/distribution.css" %}" rel="stylesheet">
+{% endblock staticfiles %}
+
+{% block main %}
+    <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="{% url "profile" %}">Профиль</a></li>
+            <li class="active"><a href="{% url 'user_info' %}">Мои результаты</a></li>
+            <li><a href="{% url 'select_recommend' %}">Мои рекомендации</a></li>
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <div class="col-md-9">
+            <h1><b>Результаты</b></h1>
+        </div>
+        <div class="col-md-3">
+            <a type="submit" href="{% url "new_info" %}" class="btn btn-primary labelText">
+                Загрузить данные
+            </a>
+        </div>
+        <br>
+        <div class="col-md-12">
+            <input class="form-control" id="myInput" type="text" placeholder="Поиск..">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Элемент</th>
+                    <th>Оценка</th>
+                    <th>Категория</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td>{{ item.item.name }}</td>
+                        <td>{{ item.score }}</td>
+                        <td>{{ item.category.name }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}

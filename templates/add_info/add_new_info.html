@@ -1,0 +1,57 @@
+{% extends 'add_info/base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block title %}Загрузка данных{% endblock title %}
+
+{% block staticfiles %}
+    <link href="{% static "css/distribution.css" %}" rel="stylesheet">
+{% endblock staticfiles %}
+
+{% block main %}
+    <h1><b>Загрузка новых данных - Выбор категории</b></h1>
+    <br>
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 33%;"
+             aria-valuenow="33" aria-valuemin="0"
+             aria-valuemax="100">
+        </div>
+    </div>
+    <form name="form" enctype="multipart/form-data" action="{% url "new_info" %}" method="post">
+        {% csrf_token %}
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="categorySelect">Выберите категорию элемента</label>
+                <select class="form-control" id="categorySelect" name="category">
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="typeSelect">Выберите тип загружаемых данных</label>
+                <div id="result"></div>
+                <select class="form-control" id="typeSelect" name="category">
+                    {% for value in source_types|get_value_from_dict:categories.2 %}
+                        <option value="{{ value }}">{{ source_text|get_value_from_dict:value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-offset-9 col-md-3">
+                <button type="submit" href="" class="btn btn-primary labelText">
+                    Далее
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        {#function getValue() {#}
+        {#    var select = document.getElementById("categorySelect");#}
+        {#    var value = select.value;#}
+        {#    alert(value);#}
+        {##}
+    </script>
+{% endblock main %}

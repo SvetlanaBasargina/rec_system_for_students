@@ -1,0 +1,45 @@
+{% extends 'add_info/base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block title %}Загрузка данных{% endblock title %}
+
+{% block staticfiles %}
+    <link href="{% static "css/distribution.css" %}" rel="stylesheet">
+{% endblock staticfiles %}
+
+{% block main %}
+    <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="{% url "profile" %}">Профиль</a></li>
+            <li><a href="{% url 'user_info' %}">Мои результаты</a></li>
+            <li class="active"><a href="{% url 'select_recommend' %}">Мои рекомендации</a></li>
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <h1><b>Рекомендации</b></h1>
+        <br>
+        <h4><b>Категория: </b>{{ category.name }}</h4>
+        <h4><b>Метод рекомендации: </b>{{ method }}</h4>
+    </div>
+    <div class="col-md-9 col-md-offset-3">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Приоритет</th>
+                <th>Элемент</th>
+                <th>Описание</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in list_rec %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ item.item }}</td>
+                    <td><a href="">Подробнее...</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

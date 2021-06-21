@@ -1,0 +1,19 @@
+{% extends 'add_info/base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block title %}Успешная загрузка{% endblock title %}
+
+{% block staticfiles %}
+    <link href="{% static "css/distribution.css" %}" rel="stylesheet">
+{% endblock staticfiles %}
+
+{% block main %}
+    <h1><b>Данные успешно сохранены!</b></h1>
+        <button type="submit" href="" class="btn btn-primary labelText">
+            Добавить еще результаты
+        </button>
+        <a type="submit" href="{% url "profile" %}" class="btn btn-primary labelText">
+            Перейти в личный кабинет
+        </a>
+{% endblock %}

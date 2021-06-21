@@ -1,0 +1,78 @@
+{% extends 'add_info/base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block title %}Загрузка данных{% endblock title %}
+
+{% block staticfiles %}
+    <link href="{% static "css/distribution.css" %}" rel="stylesheet">
+{% endblock staticfiles %}
+
+{% block main %}
+    <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="{% url "profile" %}">Профиль</a></li>
+            <li><a href="{% url 'user_info' %}">Мои результаты</a></li>
+            <li class="active"><a href="{% url 'select_recommend' %}">Мои рекомендации</a></li>
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <h1><b>Получить рекомендации</b></h1>
+        <br>
+        <form name="form" enctype="multipart/form-data" action="" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="categorySelect">Выберите категорию элемента</label>
+                <select class="form-control" id="categorySelect" name="category">
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="categorySelect">Выберите тип рекомендации</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1" data-placement="right"
+                           title="Предлагает рекомендации элементов выбранной категории">
+                        Рекомендации внутри категории
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1" data-placement="right"
+                           title="Предлагает рекомендации элементов, которые не совпадают с выбранной категорией, но выбирались в то же время что и заданный элемент">
+                        Рекомендации сопутствующих элементов
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input checked class="form-check-input" type="radio" name="flexRadioDefault1" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1" data-placement="right"
+                           title="Предлагает рекомендации элементов других категорий, содержание которых совпадает с заданным элементом">
+                        Рекомендации похожих элементов
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault3" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1" data-placement="right"
+                           title="Предлагаетнесколько один или несколько элементов что нужно изучить до заданного элемента">
+                        Цепочка рекомендаций
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="categorySelect">Выберите элемент</label>
+                <select class="form-control" id="categorySelect" name="category">
+                    {% for category in items %}
+                        <option value="{{ category.id }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-offset-8 col-md-3">
+                <button type="submit" href="" class="btn btn-primary labelText">
+                    Получить рекомендации
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
